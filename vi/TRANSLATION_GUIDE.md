@@ -9,8 +9,18 @@ following this guide. Refer to already-translated files in `vi/` for tone."
 ## 1. Scope & workflow
 
 - **Source:** `eng/<N>. <Section Name>/` — one `.md` per question + `00. Section Navigator.md`.
-- **Target:** `vi/<n>.<kebab-section-name>/` — filenames already exist (they start as
-  untranslated copies of the English). Translate **in place**, keeping the exact filename.
+- **Target:** `vi/<n>.<kebab-section-name>/` — filenames usually already exist (they start
+  as untranslated copies of the English). Translate **in place**, keeping the exact filename.
+- **If the `vi/` folder was NOT renamed yet** (still `vi/<N>. <Section Name>/` with
+  `NN. Title.md` files, as section 5 arrived): rename first, matching the sibling sections.
+  - Folder → `vi/<n>.<kebab-section-name>/` (number, dot, no space; kebab of the English
+    section name: `5. Spring Spring Boot` → `5.spring-spring-boot`).
+  - Files → `<n>.<short-topic-kebab>.md` — number **without** leading zero, name is a
+    concise kebab of the question's topic (drop "What is / How to / Difference between"
+    where it reads fine; keep it where it doesn't — cf. `4.when-use-arraylist-vs-linkedlist.md`).
+    `00. Section Navigator.md` → `0.section-navigator.md`.
+  - These copies are **untracked in git** — use plain `mv`, not `git mv`.
+  - Then update the navigator's table links to the new filenames.
 - Work **one file at a time**. For each: read the English source, overwrite the VI file
   with the translation.
 - A VI file whose byte size still equals the English source is an untranslated copy —
@@ -34,10 +44,16 @@ Keep the `?` in both. If the English title has a parenthetical already
 
 ## 3. Headings
 
-- **Keep verbatim in English:** `## Junior Level`, `## Middle Level`, `## Senior Level`,
-  `### Best Practices`, and any heading that is just a technical term
-  (`### SATB (Snapshot-At-The-Beginning)`, `### Load Reference Barriers`,
+- **Keep the level markers verbatim in English, emoji and all** — copy exactly what the
+  source uses. Some sections write `## Junior Level` / `## Middle Level` / `## Senior Level`
+  / `## Interview Cheat Sheet`; others write `## 🟢 Junior Level` / `## 🟡 Middle Level` /
+  `## 🔴 Senior Level` / `## 🎯 Interview Cheat Sheet`. Match the source file's style.
+  Emoji-prefixed subsection markers elsewhere (`## 📋 …`, `## 🗺️ …`) keep the emoji and
+  translate the text after it.
+- **Keep verbatim in English:** `### Best Practices`, and any heading that is just a
+  technical term (`### SATB (Snapshot-At-The-Beginning)`, `### Load Reference Barriers`,
   `### JIT Deoptimization`, `### ExplicitGCInvokedConcurrent`).
+- `### Senior Summary` **or** `### Summary for Senior` (sections vary) → `### Tóm tắt cho Senior`.
 - **Translate:** descriptive headings — `### Common mistakes` → `### Các lỗi thường gặp`,
   `### Why not Reference Counting?` → `### Tại sao không dùng Reference Counting?`.
   You may keep the English term inside a translated heading
@@ -96,6 +112,8 @@ then append a Vietnamese gloss in parentheses after the closing `]]`:
 - [[16. What is stop-the-world]] (Stop-the-world là gì)
 ```
 
+Some sections' links have no number prefix (`[[What is Deque]]`) — keep whatever form the
+source uses, still append the gloss: `[[What is Deque]] (Deque là gì)`.
 This matches the Section Navigator. Do not renumber or rename targets.
 
 ## 7. Standard label translations (Cheat Sheet & body)
@@ -141,7 +159,14 @@ This matches the Section Navigator. Do not renumber or rename targets.
 `00. Section Navigator.md` → `0.section-navigator.md`. Special cases:
 
 - The table of questions: translate the question text, keep the relative `.md` links
-  and the numbering; leave the "Độ khó" column blank if the source is blank.
+  and the numbering (repoint links to the new kebab filenames if you renamed the files);
+  the difficulty column header ("Difficulty Level" / "Difficulty" → "Độ khó"). Keep `⭐`
+  values as-is; if the source spells them as words ("One star" / "Two stars" / "Three
+  stars", as section 5 did) normalise to `⭐` / `⭐⭐` / `⭐⭐⭐` to match the sibling
+  sections; leave the cell blank if the source is blank.
+- The English navigator may itself be an untranslated copy even when its file timestamp
+  is newer than the sibling question files (a rename bumps the mtime). Check the content,
+  not the date.
 - ASCII dependency map: translate the category labels and short descriptions,
   keep the `Q1`, `Q13` shorthands and the box drawing.
 - Learning-path tables: translate headers ("Bước", "Chủ đề", "Mục tiêu") and cell prose;
